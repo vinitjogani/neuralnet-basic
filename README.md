@@ -1,0 +1,3 @@
+# Neural Network: a basic implementation
+
+I recently took Andrew Ng's course on Coursera about Machine Learning (it was amazing!), and for practice, decided to write an entire working implementation of Neural Network learning through the backprop algorithm. It uses batch gradient descent instead of stochastic gradient descent because I was testing it with the Iris dataset, which wasn't in the order of millions of training examples, and thereby this gave a greater accuracy (roughly 95% on average).
