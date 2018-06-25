@@ -39,4 +39,4 @@ print(test_df)
 
 # Calculate accuracy
 accuracy = len(test_df[test_df["P"] == test_df["Y"]]) / len(test_df)
-print(accuracy)
+print("The accuracy is: " + str(accuracy))
