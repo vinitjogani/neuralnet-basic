@@ -1,9 +1,10 @@
 import pandas as pd
 from neural_network import NeuralNetwork
+from sklearn.preprocessing import StandardScaler
 
 def load_data():
     # Load CSV file into a dataframe
-    df = pd.read_csv("iris.csv").sample(frac = 1)
+    df = pd.read_csv("iris.csv").sample(frac = 1, random_state=123)
     # Execute any necessary transformations
     transform_features(df)
     # Split data into 60-40 ratio
@@ -21,14 +22,20 @@ def transform_features(df):
 train_df, test_df = load_data()
 
 # Initialize network and features
-nn = NeuralNetwork(layers=(4, 50, 30, 3), reg=1, alpha=3, iter=250)
+nn = NeuralNetwork(layers=(4, 50, 50, 3), reg=3e-2, alpha=3, batch_size=90, epochs=200)
 features = ["SL", "SW", "PL", "PW"]
 
+# Scale data
+scaler = StandardScaler()
+train_data = scaler.fit_transform(train_df[features].as_matrix())
+
 # Fit the network
-nn.fit(train_df[features], train_df["Y"])
+nn.fit(train_data, list(train_df["Y"]))
 
 # Make predictions
-test_df["P"] = nn.predict(test_df[features])
+test_df["P"] = nn.predict(scaler.transform(test_df[features]))
+
+print(test_df)
 
 # Calculate accuracy
 accuracy = len(test_df[test_df["P"] == test_df["Y"]]) / len(test_df)
