@@ -21,7 +21,7 @@ def transform_features(df):
 train_df, test_df = load_data()
 
 # Initialize network and features
-nn = NeuralNetwork(layers=(4, 70, 3), reg=0.001, alpha=0.3, iter=300)
+nn = NeuralNetwork(layers=(4, 50, 30, 3), reg=1, alpha=3, iter=250)
 features = ["SL", "SW", "PL", "PW"]
 
 # Fit the network

@@ -68,10 +68,10 @@ class NeuralNetwork:
         delta = [[0 for j in range(i)] for i in self.layers]
         Delta = [[] for i in range(len(self.layers) - 1)]
         
-        delta[-1] = h - y
+        delta[-1] = (h - y) * (h) * (1 - h)
         for index in range(len(delta) - 1, 0, -1):
             i = index - 1
-            delta[i] = np.matmul(self.theta[i].T[1:], delta[i + 1]) * activation[i][1:] * (1 - (activation[i][1:]))
+            delta[i] = np.matmul(self.theta[i].T[1:], delta[i + 1])  * activation[i][1:] * (1 - (activation[i][1:])) 
             Delta[i] = np.matmul(self.v(delta[i + 1]), self.t(activation[i]))
 
         return Delta
